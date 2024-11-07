@@ -1,18 +1,18 @@
-Plantify
+#Plantify
 Plantify is a web application that allows users to identify plants with a single snap. Designed for gardening enthusiasts, nature explorers, or anyone curious about plants, it enables users to upload images of plants and provides detailed information about the identified species.
 
-Features
+#Features
 User Authentication: Sign in with Google or via Magic Link (OTP-based email verification).
 Image Upload: Easily upload pictures of plants to identify them.
 Plant Information: Access detailed descriptions and care instructions for various plants.
 My Plants Section: View and manage your saved plants.
 Protected Dashboard: Only accessible by authenticated users, displaying a personalized dashboard and options to upload images.
-Tech Stack
+#Tech Stack
 Frontend: Next.js, Shadcn for component styling, TailwindCSS for additional styling and dark mode support.
 Backend: NextAuth with Google OAuth and Magic Link (using Resend), PostgreSQL (hosted on Neon).
 State Management: Redux for storing user information and authentication state.
 Image Storage and Processing: Plant image upload and storage.
-Project Structure
+#Project Structure
 plaintext
 Copy code
 ├── components    # UI components
