@@ -15,7 +15,7 @@ export function SignInForm() {
   const [isPending, startTransition] = useTransition();
   const dispatch = useAppDispatch();
 
-  const handleEmailLogin = async (e) => {
+  const handleEmailLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     startTransition(async () => {
       await SignInEmail(formdata.email);
@@ -72,7 +72,9 @@ export function SignInForm() {
             type="email"
             placeholder="m@example.com"
             className="dark:bg-black dark:text-white"
-            onChange={(e) => setFormdata({ email: e.target.value })}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setFormdata({ email: e.target.value })
+            }
             disabled={isPending}
             required
           />
