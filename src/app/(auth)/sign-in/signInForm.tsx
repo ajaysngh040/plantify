@@ -1,6 +1,6 @@
 "use client";
 import { useState, useTransition } from "react";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { useAppDispatch } from "@/lib/hooks";
 import { initializeAuth } from "@/store/auth/authSlice";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
