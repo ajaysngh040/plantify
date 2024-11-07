@@ -9,8 +9,6 @@ import { Label } from "@/components/ui/label";
 import { SignInGoogle } from "@/lib/auth/googleSignInServerAction";
 import { SignInEmail } from "@/lib/auth/emailSignInServerAction.ts";
 import { auth } from "@/lib/auth/authOptions";
-// import { useSession } from "next-auth/react";
-// import { getUserInfo } from "@/lib/auth/getUserInfoServerAction";
 
 export function SignInForm() {
   const [formdata, setFormdata] = useState({ email: "" });
@@ -44,9 +42,8 @@ export function SignInForm() {
     await SignInGoogle();
     const session = await auth();
     if (!session) {
-      alert("session not found");
+      console.log("session not found");
     } else {
-      alert(session);
       dispatch(
         initializeAuth({
           isAuthenticated: true,
