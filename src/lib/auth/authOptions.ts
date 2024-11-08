@@ -36,6 +36,16 @@ export  const {handlers,signIn,signOut,auth} = NextAuth({
         session.user.id = token.id as string;
         return session;  // Return the modified session object
       },
+      async signIn({ account }) {
+        // Check if account exists and has a provider property
+        if (!account || !account.provider) {
+          return false; // Prevent sign-in if account or provider is missing
+        }
+      
+        // Allow sign-in only if there's an OAuth provider (Google) or a magic link (email)
+        return account.provider === 'google' || account.provider === 'email';
+      }
+      
     
   },
   
