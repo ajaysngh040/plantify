@@ -1,30 +1,11 @@
 "use client";
 import { Button } from "@/components/ui/button";
-// import { useAppSelector } from "@/lib/hooks";
-import { useSession } from "next-auth/react";
+import { useAppSelector } from "@/lib/hooks";
 import Image from "next/image";
 import React from "react";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { initializeAuth } from "@/store/auth/authSlice";
 
 export default function Dashboard() {
-  const { data: session } = useSession();
-  const dispatch = useAppDispatch();
-  if (!session) {
-    console.log("session not found");
-  } else {
-    dispatch(
-      initializeAuth({
-        isAuthenticated: true,
-        user: {
-          id: session?.user?.id as string,
-          name: session?.user?.name as string,
-          email: session?.user?.email as string,
-        },
-      })
-    );
-  }
-  const user = useAppSelector((state) => state.auth.user);
+  const user = useAppSelector((state) => state?.auth.user);
   return (
     <>
       <main className="container flex-grow flex items-top justify-center  bg-white dark:bg-black flex-col gap-4 lg:flex-row">

@@ -1,13 +1,15 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useSession } from "next-auth/react";
+import { useAppSelector } from "@/lib/hooks";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 export const HomePage = () => {
   const router = useRouter();
-  const { data: session } = useSession();
+  const isAuthenticated = useAppSelector(
+    (state) => state?.auth.isAuthenticated
+  );
   return (
     <>
       <main className="container flex-grow flex items-center justify-center  bg-white dark:bg-black flex-col gap-4 lg:flex-row">
@@ -29,7 +31,7 @@ export const HomePage = () => {
             explore and save plants, access personalized care tips, and build
             your plant collection.
           </p>
-          {session ? (
+          {isAuthenticated ? (
             <Button
               className="mt-8 bg-green text-white hover:bg-lightGreen"
               onClick={() => router.push("/dashboard")}

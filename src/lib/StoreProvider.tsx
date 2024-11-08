@@ -12,7 +12,6 @@ export default function StoreProvider({
   const [isPersistorReady, setIsPersistorReady] = useState(false);
 
   useEffect(() => {
-    // Check that window is defined
     if (typeof window !== "undefined") {
       setIsPersistorReady(true);
     }

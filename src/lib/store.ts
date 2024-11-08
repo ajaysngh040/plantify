@@ -5,7 +5,7 @@ import authReducer from "../store/auth/authSlice";
 import { combineReducers } from "redux";
 
 const persistConfig = {
-  key: "root",
+  key: "auth",
   storage,
   whitelist: ["isAuthenticated", "user"],
 };
@@ -20,7 +20,7 @@ export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: false, // Required for `redux-persist`
+      serializableCheck: false, 
     }),
 });
 

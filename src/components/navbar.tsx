@@ -6,18 +6,24 @@ import { useDarkMode } from "@/lib/themeToggle";
 import { Moon, SunMoonIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { handleSignOut } from "@/lib/auth/handleSignOutServerAction";
-import { useSession } from "next-auth/react";
-
-// import { useAppSelector } from "@/lib/hooks";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { clearAuth } from "@/store/auth/authSlice";
+import { persistor } from "@/lib/store";
 // import Link from "next/link";
 
 const Navbar = ({ toggle }: { toggle: () => void }): JSX.Element => {
   const router = useRouter();
-  // Hamburger Menu toggle
-  const { isDarkMode, toggleTheme } = useDarkMode(); // Destructure `isDarkMode` from hook
+  const dispatch = useAppDispatch();
+  const { isDarkMode, toggleTheme } = useDarkMode();
+  const isAuthenticated = useAppSelector(
+    (state) => state?.auth.isAuthenticated
+  );
 
-  // const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated;
-  const { data: session } = useSession();
+  const handleLogOut = async () => {
+    await handleSignOut();
+    dispatch(clearAuth());
+    persistor.purge();
+  };
 
   return (
     <div className="w-full h-20 bg-white dark:bg-black sticky top-0">
@@ -74,10 +80,10 @@ const Navbar = ({ toggle }: { toggle: () => void }): JSX.Element => {
               </svg>
             </button>
             <div className="hidden md:block">
-              {session ? (
+              {isAuthenticated ? (
                 <Button
                   className=" bg-green text-white hover:bg-lightGreen"
-                  onClick={() => handleSignOut()}
+                  onClick={handleLogOut}
                 >
                   Sign out
                 </Button>
