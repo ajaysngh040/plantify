@@ -1,12 +1,17 @@
+"use client";
 import React from "react";
-
 import { redirect } from "next/navigation";
 import Dashboard from "./dashboard";
 import { checkIsAuthenticated } from "@/lib/auth/checkIsAuthenticated";
+// import { getUserInfo } from "@/lib/auth/getUserInfoServerAction";
+
+// import { checkIsAuthenticated } from "@/lib/auth/checkIsAuthenticated";
 
 const dashboard = async () => {
   const isAuthenticated = await checkIsAuthenticated();
   // const isAuthenticated = false;
+  // const session = await getUserInfo();
+
   if (!isAuthenticated) {
     redirect("/sign-in");
   } else {
