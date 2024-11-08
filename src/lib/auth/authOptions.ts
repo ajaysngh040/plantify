@@ -14,7 +14,7 @@ export  const {handlers,signIn,signOut,auth} = NextAuth({
     clientSecret:process.env.GOOGLE_CLIENT_SECRET,
     }),
     SendGrid({
-      apiKey: process.env.AUTH_SENDGRID_KEY,
+      apiKey: process.env.SENDGRID_API_KEY,
         from: process.env.EMAIL_FROM,
       })
   ],
