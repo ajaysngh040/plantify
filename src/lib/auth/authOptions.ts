@@ -18,20 +18,20 @@ export  const {handlers,signIn,signOut,auth} = NextAuth({
         from: process.env.EMAIL_FROM,
       })
   ],
-  // callbacks: {
-  //   async jwt({ token, user }) {
-  //       if (user) {
-  //         token.id = user.id;
-  //       }
-  //       return token;
-  //     },
-  //     async session({ session, token }) {
-  //       if (token) {
-  //         session.user.id = token.id as string;  
-  //       } 
-  //       return session;  // Return the modified session object
-  //     },
-  //   },
+  callbacks: {
+    async jwt({ token, user }) {
+        if (user) {
+          token.id = user.id;
+        }
+        return token;
+      },
+      async session({ session, token }) {
+        if (token) {
+          session.user.id = token.id as string;  
+        } 
+        return session;  // Return the modified session object
+      },
+    },
   
   session: {
     strategy: "jwt", // Change to "database" for database-stored sessions
