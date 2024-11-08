@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 import { handleSignOut } from "@/lib/auth/handleSignOutServerAction";
 import { useSession } from "next-auth/react";
 
-// import { useSession } from "next-auth/react";
 // import { useAppSelector } from "@/lib/hooks";
 // import Link from "next/link";
 
@@ -17,13 +16,9 @@ const Navbar = ({ toggle }: { toggle: () => void }): JSX.Element => {
   // Hamburger Menu toggle
   const { isDarkMode, toggleTheme } = useDarkMode(); // Destructure `isDarkMode` from hook
 
-  // const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
-
-  let isAuthenticated;
+  // const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated;
   const { data: session } = useSession();
-  if (session) {
-    isAuthenticated = true;
-  }
+
   return (
     <div className="w-full h-20 bg-white dark:bg-black sticky top-0">
       <div className="container mx-auto px-4 h-full">
@@ -79,7 +74,7 @@ const Navbar = ({ toggle }: { toggle: () => void }): JSX.Element => {
               </svg>
             </button>
             <div className="hidden md:block">
-              {isAuthenticated ? (
+              {session ? (
                 <Button
                   className=" bg-green text-white hover:bg-lightGreen"
                   onClick={() => handleSignOut()}

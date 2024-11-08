@@ -6,6 +6,8 @@ import { auth } from "./authOptions";
 
 export async function checkIsAuthenticated() {
   const session = await auth();
-
-  return session ? true : false;
+  if(session){
+    return session ? true : false
+  }
+  
 }
