@@ -27,12 +27,15 @@ export  const {handlers,signIn,signOut,auth} = NextAuth({
         }
         return token;
       },
-    async session({ session, token }) {
-      if (token) {
-        session.user.id= token.id as string;
-      }
-      return session;
-    },
+      async session({ session, token }) {
+        if (!token) {
+          return session;  // Return the session as-is if token is missing
+        }
+    
+        // Attach the user ID from the token to the session
+        session.user.id = token.id as string;
+        return session;  // Return the modified session object
+      },
     
   },
   
