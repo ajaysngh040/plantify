@@ -4,17 +4,32 @@ import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React from "react";
+import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { initializeAuth } from "@/store/auth/authSlice";
 
 export default function Dashboard() {
   const { data: session } = useSession();
-  // const user = useAppSelector((state) => state.auth.user);
+  const dispatch = useAppDispatch();
+  if (!session) {
+    console.log("session not found");
+  } else {
+    dispatch(
+      initializeAuth({
+        isAuthenticated: true,
+        user: {
+          id: session?.user?.id as string,
+          name: session?.user?.name as string,
+          email: session?.user?.email as string,
+        },
+      })
+    );
+  }
+  const user = useAppSelector((state) => state.auth.user);
   return (
     <>
       <main className="container flex-grow flex items-top justify-center  bg-white dark:bg-black flex-col gap-4 lg:flex-row">
         <section className="flex flex-col items-start justify-center  m-2 pl-6">
-          <h2 className="dark:text-white text-2xl mb-4">
-            Hi {session?.user?.name}!
-          </h2>
+          <h2 className="dark:text-white text-2xl mb-4">Hi {user?.name}!</h2>
           <h1 className="text-2xl md:text-5xl font-semibold dark:text-white">
             Welcome to Plantify
           </h1>

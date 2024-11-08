@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const AuthErrorPage: React.FC = () => {
   return (
-    <div className="container flex justify-center items-center min-h-screen dark:bg-black">
+    <div className="container-lg flex justify-center items-center min-h-screen dark:bg-black">
       <div className="flex justify-center items-center flex-col">
         <div className="flex justify-center items-center flex-col">
           <TriangleAlertIcon size="64" className="text-red-500" />

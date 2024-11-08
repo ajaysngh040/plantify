@@ -2,11 +2,11 @@ import React from "react";
 
 import { redirect } from "next/navigation";
 import Dashboard from "./dashboard";
-// import { checkIsAuthenticated } from "@/lib/auth/checkIsAuthenticated";
+import { checkIsAuthenticated } from "@/lib/auth/checkIsAuthenticated";
 
 const dashboard = async () => {
-  // const isAuthenticated = await checkIsAuthenticated();
-  const isAuthenticated = false;
+  const isAuthenticated = await checkIsAuthenticated();
+  // const isAuthenticated = false;
   if (!isAuthenticated) {
     redirect("/sign-in");
   } else {

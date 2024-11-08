@@ -1,60 +1,26 @@
 "use client";
 import { useState, useTransition } from "react";
-import { useAppDispatch } from "@/lib/hooks";
-import { initializeAuth } from "@/store/auth/authSlice";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { SignInGoogle } from "@/lib/auth/googleSignInServerAction";
 import { SignInEmail } from "@/lib/auth/emailSignInServerAction.ts";
-import { useSession } from "next-auth/react";
 
 export function SignInForm() {
   const [formdata, setFormdata] = useState({ email: "" });
   const [isPending, startTransition] = useTransition();
-  const dispatch = useAppDispatch();
-  const { data: session } = useSession();
 
   const handleEmailLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     startTransition(async () => {
       await SignInEmail(formdata.email);
     });
-
-    if (!session) {
-      console.log("You are not authorized");
-    } else {
-      dispatch(
-        initializeAuth({
-          isAuthenticated: true,
-          user: {
-            id: session?.user?.id as string,
-            name: session?.user?.name as string,
-            email: session?.user?.email as string,
-          },
-        })
-      );
-    }
   };
 
   const handleGoogleLogin = async () => {
     await SignInGoogle();
-
-    if (!session) {
-      console.log("session not found");
-    } else {
-      dispatch(
-        initializeAuth({
-          isAuthenticated: true,
-          user: {
-            id: session?.user?.id as string,
-            name: session?.user?.name as string,
-            email: session?.user?.email as string,
-          },
-        })
-      );
-    }
   };
 
   return (
