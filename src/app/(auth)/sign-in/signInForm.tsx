@@ -8,12 +8,13 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { SignInGoogle } from "@/lib/auth/googleSignInServerAction";
 import { SignInEmail } from "@/lib/auth/emailSignInServerAction.ts";
-import { auth } from "@/lib/auth/authOptions";
+import { useSession } from "next-auth/react";
 
 export function SignInForm() {
   const [formdata, setFormdata] = useState({ email: "" });
   const [isPending, startTransition] = useTransition();
   const dispatch = useAppDispatch();
+  const { data: session } = useSession();
 
   const handleEmailLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,7 +22,6 @@ export function SignInForm() {
       await SignInEmail(formdata.email);
     });
 
-    const session = await auth();
     if (!session) {
       console.log("You are not authorized");
     } else {
@@ -40,7 +40,7 @@ export function SignInForm() {
 
   const handleGoogleLogin = async () => {
     await SignInGoogle();
-    const session = await auth();
+
     if (!session) {
       console.log("session not found");
     } else {
